@@ -1,0 +1,155 @@
+/* Base styling */
+body {
+  background-color: #0e0e0e;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  padding: 5vw;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Wheel container with responsiveness */
+#wheelContainer {
+  display: inline-block;
+  border-radius: 50%;
+  padding: 2vw;
+  max-width: 90vw;
+  max-height: 90vw;
+  transition: box-shadow 0.2s ease-in-out;
+  box-sizing: border-box;
+}
+
+/* Glow animation for spinning */
+#wheelContainer.spinning {
+  animation: glowBorder 1s infinite alternate;
+}
+
+@keyframes glowBorder {
+  0% { box-shadow: 0 0 2vw 1vw #f04391; }
+  100% { box-shadow: 0 0 4vw 2vw #ff00aa; }
+}
+
+/* Responsive canvas */
+#wheelCanvas {
+  background-color: #111;
+  border-radius: 50%;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Popup (Win + Lose) */
+#winPopup,
+#LoosePopup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5vw;
+  border-radius: 1vw;
+  font-size: 6vw;
+  font-weight: bold;
+  display: none;
+  z-index: 100;
+  max-width: 80vw;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+#winPopup {
+  background-color: rgba(0, 255, 136, 0.9);
+}
+
+#LoosePopup {
+  background-color: rgba(248, 55, 26, 0.9);
+}
+
+/* Form elements */
+select, input, button {
+  padding: 2vw 3vw;
+  font-size: 4vw;
+  margin: 2vw;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Desktop adjustments */
+@media (min-width: 768px) {
+  #winPopup,
+  #LoosePopup {
+    font-size: 24px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  select, input, button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 10px;
+  }
+}
+
+    #cashoutButton {
+      margin-left: 10px;
+      background-color: #00c851;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #cashoutButton:hover {
+      background-color: #007e33;
+    }
+
+
+
+/* Add to existing CSS */
+#payoutInfo {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 16px;
+  background: rgba(50, 50, 50, 0.7);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Add to desktop adjustments */
+@media (min-width: 768px) {
+  #payoutInfo {
+    font-size: 18px;
+  }
+}
+
+/* Add to existing CSS */
+#roundTracker {
+  font-size: 20px;
+  font-weight: bold;
+  background: rgba(200, 0, 0, 0.3);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#cashoutButton {
+  background-color: #00C851;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#cashoutButton:hover {
+  background-color: #007E33;
+}
+
+#potentialWin {
+  color: #00ff88;
+  font-weight: bold;
+}

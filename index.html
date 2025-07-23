@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Squid Game: Elimination Rounds</title>
+  <link rel="stylesheet" href="./css/app.css">
+</head>
+<body>
+  <h1>Squid Game: Elimination Rounds</h1>
+  
+  <!-- Added round tracker and cashout option -->
+  <div id="roundTracker" style="margin-bottom: 15px; font-size: 18px;">
+    Round: <span id="currentRound">1</span>/3 
+    <button id="cashoutButton" style="display: none; margin-left: 15px;">CASH OUT</button>
+  </div>
+  
+  <div id="payoutInfo" style="margin-bottom: 20px;">
+    <div>Current Multipliers:</div>
+    <div>Red: <span id="redPayout">x1.80</span></div>
+    <div>Black: <span id="blackPayout">x1.70</span></div>
+    <div>Gold: <span id="goldPayout">x7.00</span></div>
+  </div>
+  
+  <div id="wheelContainer" style="margin-bottom: 20px;">
+    <canvas id="wheelCanvas" width="400" height="400"></canvas>
+  </div>
+  
+  <div style="margin-top: 10px;">
+    <label>Bet Amount: $<input id="betInput" type="number" value="10" min="1" /></label>
+    <select id="colorSelect">
+      <option value="red">Red</option>
+      <option value="black">Black</option>
+      <option value="gold">Gold</option>
+    </select>
+    <button id="spinButton">SPIN THE WHEEL</button>
+  </div>
+  
+  <div style="padding: 5px; margin-top: 10px;">
+    Balance: $<span id="balanceDisplay">100</span>
+    <span style="margin-left: 15px;">Potential Win: $<span id="potentialWin">0</span></span>
+  </div>
+  
+  <div id="roundInfo" style="margin-top: 20px; font-size: 18px;">Session Progress: 0%</div>
+  <div id="winPopup"></div>
+  <div id="LoosePopup"></div>
+
+  <audio id="dramaticSound" src="./resources/mingle_squid_game.mp3"></audio>
+  <script src="./js/run.js"></script>
+</body>
+</html>
