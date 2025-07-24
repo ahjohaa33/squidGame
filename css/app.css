@@ -1,155 +1,470 @@
-/* Base styling */
-body {
-  background-color: #0e0e0e;
-  color: white;
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-  padding: 5vw;
-  margin: 0;
-  box-sizing: border-box;
-}
 
-/* Wheel container with responsiveness */
-#wheelContainer {
-  display: inline-block;
-  border-radius: 50%;
-  padding: 2vw;
-  max-width: 90vw;
-  max-height: 90vw;
-  transition: box-shadow 0.2s ease-in-out;
-  box-sizing: border-box;
-}
+    /* Base styling */
+    body {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 2rem;
+      margin: 0;
+      min-height: 100vh;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
 
-/* Glow animation for spinning */
-#wheelContainer.spinning {
-  animation: glowBorder 1s infinite alternate;
-}
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
-@keyframes glowBorder {
-  0% { box-shadow: 0 0 2vw 1vw #f04391; }
-  100% { box-shadow: 0 0 4vw 2vw #ff00aa; }
-}
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 15px rgba(255, 0, 170, 0.7);
+      background: linear-gradient(to right, #ff00aa, #ff7700);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 1px;
+    }
 
-/* Responsive canvas */
-#wheelCanvas {
-  background-color: #111;
-  border-radius: 50%;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  box-sizing: border-box;
-}
+    .stats-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
 
-/* Popup (Win + Lose) */
-#winPopup,
-#LoosePopup {
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 5vw;
-  border-radius: 1vw;
-  font-size: 6vw;
-  font-weight: bold;
-  display: none;
-  z-index: 100;
-  max-width: 80vw;
-  text-align: center;
-  word-wrap: break-word;
-}
+    .stats-card {
+      background: rgba(30, 30, 60, 0.7);
+      border-radius: 15px;
+      padding: 1.2rem;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-#winPopup {
-  background-color: rgba(0, 255, 136, 0.9);
-}
+    .stats-card h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      color: #ff00aa;
+    }
 
-#LoosePopup {
-  background-color: rgba(248, 55, 26, 0.9);
-}
+    .stats-value {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #00ffaa;
+    }
 
-/* Form elements */
-select, input, button {
-  padding: 2vw 3vw;
-  font-size: 4vw;
-  margin: 2vw;
-  border: none;
-  border-radius: 5px;
-}
+    .progress-container {
+      margin: 2rem auto;
+      max-width: 600px;
+    }
 
-/* Desktop adjustments */
-@media (min-width: 768px) {
-  #winPopup,
-  #LoosePopup {
-    font-size: 24px;
-    padding: 20px;
-    border-radius: 10px;
-  }
+    .progress-bar {
+      height: 25px;
+      background: rgba(50, 50, 80, 0.5);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 0.5rem;
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+    }
 
-  select, input, button {
-    font-size: 16px;
-    padding: 10px 20px;
-    margin: 10px;
-  }
-}
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ff00aa 0%, #ff7700 100%);
+      width: 0%;
+      transition: width 0.5s ease;
+      border-radius: 12px;
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    /* Wheel container with responsiveness */
+    #wheelContainer {
+      display: inline-block;
+      border-radius: 50%;
+      padding: 1rem;
+      max-width: 90vw;
+      max-height: 90vh;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      position: relative;
+      margin: 1.5rem auto;
+    }
+
+    /* Glow animation for spinning */
+    #wheelContainer.spinning {
+      animation: glowBorder 1s infinite alternate;
+    }
+
+    @keyframes glowBorder {
+      0% { box-shadow: 0 0 15px 5px rgba(255, 0, 170, 0.5); }
+      100% { box-shadow: 0 0 25px 10px rgba(255, 119, 0, 0.7); }
+    }
+
+    /* Responsive canvas */
+    #wheelCanvas {
+      background: #111;
+      border-radius: 50%;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      box-sizing: border-box;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Betting controls */
+    .controls {
+      background: rgba(30, 30, 60, 0.7);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin: 1.5rem auto;
+      max-width: 600px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .bet-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 150px;
+    }
+
+    .control-group label {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #ff7700;
+    }
+
+    select, input, button {
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background: rgba(50, 50, 80, 0.8);
+      color: white;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    input {
+      width: 100px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #ff00aa 0%, #ff7700 100%);
+      font-weight: bold;
+      cursor: pointer;
+      min-width: 180px;
+      margin: 0.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background: #555;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
 
     #cashoutButton {
-      margin-left: 10px;
-      background-color: #00c851;
-      color: white;
+      background: linear-gradient(135deg, #00c851 0%, #007e33 100%);
+    }
+
+    /* Popup (Win + Lose) */
+    #winPopup,
+    #LoosePopup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 2rem;
+      border-radius: 15px;
+      font-size: 1.8rem;
       font-weight: bold;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 5px;
-      cursor: pointer;
+      display: none;
+      z-index: 100;
+      max-width: 90vw;
+      text-align: center;
+      word-wrap: break-word;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+      animation: popupAppear 0.5s ease-out;
+      backdrop-filter: blur(5px);
     }
-    #cashoutButton:hover {
-      background-color: #007e33;
+
+    @keyframes popupAppear {
+      0% { opacity: 0; transform: translate(-50%, -40%); }
+      100% { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    #winPopup {
+      background: rgba(0, 200, 81, 0.9);
+      color: #003311;
+      border: 3px solid #00ff88;
+    }
+
+    #LoosePopup {
+      background: rgba(248, 55, 26, 0.9);
+      color: #330000;
+      border: 3px solid #ff4444;
+    }
+
+    .popup-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #f00;
+      top: 0;
+      opacity: 0;
+    }
+
+    /* Info panels */
+    .info-panels {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .info-panel {
+      background: rgba(30, 30, 60, 0.7);
+      border-radius: 15px;
+      padding: 1.5rem;
+      flex: 1;
+      min-width: 250px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .info-panel h3 {
+      margin-top: 0;
+      color: #ff7700;
+      border-bottom: 2px solid #ff00aa;
+      padding-bottom: 0.5rem;
+    }
+
+    .payout-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .payout-color {
+      font-weight: bold;
+    }
+
+    .color-red { color: #ff5555; }
+    .color-black { color: #cccccc; }
+    .color-gold { color: #ffcc00; }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .stats-card {
+        min-width: 140px;
+        padding: 1rem;
+      }
+      
+      .stats-value {
+        font-size: 1.5rem;
+      }
+      
+      .controls {
+        padding: 1rem;
+      }
+      
+      .bet-controls {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Achievement badges */
+    .achievement {
+      display: inline-block;
+      background: rgba(255, 200, 0, 0.2);
+      border: 2px solid #ffcc00;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      margin: 0 5px;
+      font-size: 1.2rem;
     }
 
 
+    /* Add to existing CSS */
+.stats-card:nth-child(2) .stats-value {
+  color: #ffcc00; /* Gold color for TK balance */
+}
 
-/* Add to existing CSS */
-#payoutInfo {
+.coin-shop {
+  background: rgba(40, 40, 80, 0.8);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin: 1.5rem auto;
+  max-width: 600px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.coin-shop h3 {
+  color: #ffcc00;
+  margin-top: 0;
+  border-bottom: 2px solid #ffcc00;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.coin-packages {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  font-size: 16px;
-  background: rgba(50, 50, 50, 0.7);
-  padding: 10px;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.coin-package {
+  background: rgba(60, 60, 100, 0.6);
   border-radius: 10px;
-}
-
-/* Add to desktop adjustments */
-@media (min-width: 768px) {
-  #payoutInfo {
-    font-size: 18px;
-  }
-}
-
-/* Add to existing CSS */
-#roundTracker {
-  font-size: 20px;
-  font-weight: bold;
-  background: rgba(200, 0, 0, 0.3);
-  padding: 10px;
-  border-radius: 10px;
-}
-
-#cashoutButton {
-  background-color: #00C851;
-  color: white;
-  font-weight: bold;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 1rem;
+  min-width: 120px;
   cursor: pointer;
-  font-size: 16px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
 }
 
-#cashoutButton:hover {
-  background-color: #007E33;
+.coin-package:hover {
+  transform: translateY(-5px);
+  border-color: #ffcc00;
+  box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4);
 }
 
-#potentialWin {
-  color: #00ff88;
+.coin-amount {
   font-weight: bold;
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+.coin-price {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+.warning-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(200, 50, 50, 0.95);
+  color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  z-index: 1000;
+  display: none;
+  text-align: center;
+  max-width: 90%;
+  width: 400px;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+  border: 3px solid #ff4444;
+}
+
+.warning-content h3 {
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.warning-content p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.warning-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.warning-buttons button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+#proceedButton {
+  background: linear-gradient(135deg, #ff7700 0%, #ff3300 100%);
+  color: white;
+}
+
+#cashoutNowButton {
+  background: linear-gradient(135deg, #00c851 0%, #007e33 100%);
+  color: white;
+}
+
+.warning-buttons button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
